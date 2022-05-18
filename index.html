@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/css/pure-min.css">
+  <link rel="stylesheet" href="public/css/button.css">
+  <style>
+    .horizontal-bar {
+      height: 80px;
+      border: 13px solid #bed5cd;
+      overflow-y: auto;
+    }
+
+    .array-show {
+      margin-left: 15px;
+      margin-right: 15px;
+
+      font-size: 20px;
+    }
+
+    .space-left{
+      margin-left: 15px;
+    }
+  </style>
+  <script src="public/js/bogo_sort.js"></script>
+  <script src="public/js/bubble_sort.js"></script>
+  <script src="public/js/bucket_sort.js"></script>
+  <script src="public/js/cocktail_sort.js"></script>
+  <script src="public/js/counting_sort.js"></script>
+  <script src="public/js/cycle_sort.js"></script>
+  <script src="public/js/gnome_sort.js"></script>
+  <script src="public/js/heap_sort.js"></script>
+  <script src="public/js/insertion_sort.js"></script>
+  <script src="public/js/merge_sort.js"></script>
+  <script src="public/js/quick_sort.js"></script>
+  <script src="public/js/radix_sort.js"></script>
+  <script src="public/js/selection_sort.js"></script>
+  <script src="public/js/shell_sort.js"></script>
+  <title>Ordenadores</title>
+</head>
+<body>
+  <form action="#" class="pure-form">
+    <fieldset>
+      <legend>Ordenadores</legend>
+      <div class="pure-u-5-5">
+        <span class="space-left" for="qtd_registros">Qtd. de Registros: </span>
+        <input type="number" id="qtd_registros" value="30">
+        <div onclick="gerarArray();" class="button-success pure-button">
+          Gerar
+        </div>
+        <div class="horizontal-bar array-show" id="array_registros">[]</div>
+      </div>
+      <div class="pure-u-5-5 space-left">
+        <span>
+          Selecione o ordenador que deseja:
+        </span>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="bogo_ord">
+            <label for="bogo_ord">Bogo</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="bubble_ord" checked>
+            <label for="bubble_ord">Bubble</label>
+          </div>
+        </div>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="bucket_ord">
+            <label for="bucket_ord">Bucket</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="cocktail_ord">
+            <label for="cocktail_ord">Cocktail</label>
+          </div>
+        </div>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="counting_ord">
+            <label for="counting_ord">Counting</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="cycle_ord">
+            <label for="cycle_ord">Cycle</label>
+          </div>
+        </div>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="gnome_ord">
+            <label for="gnome_ord">Gnome</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="heap_ord">
+            <label for="heap_ord">Heap</label>
+          </div>
+        </div>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="insertion_ord">
+            <label for="insertion_ord">Insertion</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="merge_ord">
+            <label for="merge_ord">Merge</label>
+          </div>
+        </div>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="quick_ord">
+            <label for="quick_ord">Quick</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="radix_ord">
+            <label for="radix_ord">Radix</label>
+          </div>
+        </div>
+        <div class="pure-u-5-5">
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="selection_ord">
+            <label for="selection_ord">Selection</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input type="radio" name="ordenador_selecionado" id="shell_ord">
+            <label for="shell_ord">Shell</label>
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-5-5 space-left">
+        <div onclick="ordenar();" class="button-success pure-button">
+          Ordenar
+        </div>
+      </div>
+      <div class="pure-u-5-5">
+          <h3 class="space-left">Array Ordenado</h3>
+          <div class="horizontal-bar array-show" id="array_ordenado">[]</div>
+          <h5 class="space-left" id="tempo_demorado"></h5>
+      </div>
+    </fieldset>
+  </form>
+
+  <script type="text/javascript">
+    var registros = [1, 2];
+
+    function gerarArray(){
+      let qtd = document.getElementById("qtd_registros").value;
+      registros = Array.from({length: qtd}, () => Math.floor(Math.random() * qtd));
+
+      document.getElementById('array_registros').innerHTML = "[" + registros.join(', ') + "]";
+    }
+
+    async function ordenar(){
+      let ordenador_selecionado = document.querySelector('input[type="radio"][name="ordenador_selecionado"]:checked').id;
+      let arr = [];
+      let startDate = '';
+      let endDate = '';
+      switch(ordenador_selecionado){
+        case 'bogo_ord':
+          startDate = Date.now();
+          arr = await bogo_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'bubble_ord':
+          startDate = Date.now();
+          arr = await bubble_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'bucket_ord':
+          startDate = Date.now();
+          arr = await bucket_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'cocktail_ord':
+          startDate = Date.now();
+          arr = await cocktail_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'counting_ord':
+          startDate = Date.now();
+          arr = await counting_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'cycle_ord':
+          startDate = Date.now();
+          arr = await cycle_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'gnome_ord':
+          startDate = Date.now();
+          arr = await gnome_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'heap_ord':
+          startDate = Date.now();
+          arr = await heap_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'insertion_ord':
+          startDate = Date.now();
+          arr = await insertion_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'merge_ord':
+          startDate = Date.now();
+          arr = await merge_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'quick_ord':
+          startDate = Date.now();
+          arr = await quick_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'radix_ord':
+          startDate = Date.now();
+          arr = await radix_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'selection_ord':
+          startDate = Date.now();
+          arr = await selection_sort(registros);
+          endDate = Date.now();
+        break;
+        case 'shell_ord':
+          startDate = Date.now();
+          arr = await shell_sort(registros);
+          endDate = Date.now();
+        break;
+        default:
+          alert('Ordenador inválido');
+          return;
+          break;
+      }
+
+      registros = arr;
+      let milliseconds = Math.abs(endDate - startDate);
+      let formatted_string = msToTime(milliseconds);
+      document.getElementById('tempo_demorado').innerHTML = formatted_string;
+      document.getElementById('array_ordenado').innerHTML = "[" + arr.join(', ') + "]";
+    }
+
+    function msToTime(s) {
+        // Pad to 2 or 3 digits, default is 2
+      var pad = (n, z = 2) => ('00' + n).slice(-z);
+       let formatted_string = '';
+       formatted_string += ('00' === pad(s/3.6e6|0) ? '' : '<br> Horas: ' + pad(s/3.6e6|0));
+       formatted_string += ('00' === pad((s%3.6e6)/6e4 | 0) ? '' : '<br> Minutos: ' + pad((s%3.6e6)/6e4 | 0));
+       formatted_string += ('00' === pad((s%6e4)/1000|0) ? '' : '<br> Segundos: ' + pad((s%6e4)/1000|0));
+       formatted_string += ('00' === pad(s%1000, 3) ? '' : '<br> Milissegundos: ' + pad(s%1000, 3));
+
+       return formatted_string;
+    }
+  </script>
+</body>
+</html>
